@@ -7,7 +7,7 @@ The library may be subject to change in the near future to cleanup the code and 
 See the original [project page](https://github.com/ivanfratric/polypartition) for more details on the library itself.
 
 ###Demo Project
-The demo project *PolyDemo* uses [eto](https://github.com/picoe/Eto) for the UI.
+The demo project *PolyDemo* uses [Eto](https://github.com/picoe/Eto) for the UI.
 Left click to place a vertex and when finished press middle mouse to triangulate, and press right mouse at any time to clear.
 
 ###License

@@ -35,7 +35,7 @@ using Eto.Drawing;
 
 namespace Polygon
 {
-    public sealed class Application
+    public sealed class Application : Eto.Forms.Application
     {
         [STAThread]
         private static int Main(string[] args)
@@ -44,7 +44,7 @@ namespace Polygon
             return Instance.Return;
         }
 
-        public static Application Instance
+        public new static Application Instance
         {
             get;
             private set;
@@ -63,22 +63,16 @@ namespace Polygon
         }
 
         private Application()
+            : base(Platform.Detect)
         {
             try
             {
-                Application.Instance = this;
-                
-                (new Eto.Forms.Application(Platform.Detect)).Attach();
+                Instance = this;
 
                 Forms = new List<Form>();
-
                 CreateForm<frmPolygon>().Show();
-                
-                do
-                {
-                    System.Threading.Thread.Sleep(1);
-                    Eto.Forms.Application.Instance.RunIteration();
-                } while (Forms.Count > 0);
+
+                base.Run();
             }
             catch (Exception e)
             {
@@ -94,10 +88,16 @@ namespace Polygon
 
             nForm.Closed += (object s, EventArgs e) =>
             {
-                Application.Instance.Forms.Remove((Form)s);
+                Instance.Forms.Remove((Form)s);
+                ((Form)s).Dispose();
+
+                if (Instance.Forms.Count < 1)
+                {
+                    Instance.Quit();
+                }
             };
 
-            Application.Instance.Forms.Add(nForm);
+            Instance.Forms.Add(nForm);
 
             return (Form)nForm;
         }
