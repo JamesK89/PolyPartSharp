@@ -55,11 +55,11 @@ namespace PolyPartition
         {
             Clear();
 
-            Points = new List<TPPLPoint>(numPoints);
+            Points = new List<TPPLPoint>();
 
             for (int i = 0; i < numPoints; i++)
             {
-                Points[i] = new TPPLPoint();
+                Points.Add(new TPPLPoint());
             }
         }
 
@@ -71,12 +71,8 @@ namespace PolyPartition
 
             if (src.Points != null)
             {
-                Points = new List<TPPLPoint>(src.Points.Count);
-
-                for (int i = 0; i < Points.Count; i++)
-                {
-                    Points[i] = new TPPLPoint(src.Points[i]);
-                }
+                Points = new List<TPPLPoint>();
+                Points.AddRange(src.Points);
             }
         }
 
